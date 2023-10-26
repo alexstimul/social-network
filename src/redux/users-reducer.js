@@ -3,18 +3,13 @@ const ADD_FRIEND = "ADD-FRIEND"
 const REMOVE_FRIEND = "REMOVE-FRIEND"
 
 const initialState = {
-    users: [
-        {id: 1, fullName: "Test1", photoUser: "", status: "I am cool 1", location: { city: "Moscow", country: "Russia"}, isFriend: false},
-        {id: 2, fullName: "Test2", photoUser: "", status: "I am cool 2", location: { city: "Orel", country: "Russia"}, isFriend: false},
-        {id: 3, fullName: "Test3", photoUser: "", status: "I am cool 3", location: { city: "Saratov", country: "Russia"}, isFriend: false},
-        {id: 4, fullName: "Test4", photoUser: "", status: "I am cool 4", location: { city: "Piter", country: "Russia"}, isFriend: false},
-        {id: 5, fullName: "Test5", photoUser: "", status: "I am cool 5", location: { city: "Orel", country: "Russia"}, isFriend: false}
-    ]
+    users: []
 }
 
 export const usersReducer = (state = initialState, action) => {
-    switch (action.state) {
+    switch (action.type) {
         case ADD_FRIEND:
+            debugger
             return {
                 ...state,
                 users: state.users.map((user) => {
