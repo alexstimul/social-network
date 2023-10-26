@@ -6,16 +6,12 @@ import DialogsContainer from "./conponents/Dialogs/DialogsContainer";
 import Music from "./conponents/Music/Music";
 import News from "./conponents/News/News";
 import Settings from "./conponents/Settings/Settings";
+import UsersContainer from "./conponents/Users/UsersContainer";
 
 import styles from './App.module.css';
 import { Route, Routes } from 'react-router-dom';
 
 const App = (props) => {
-	const {
-		state,
-		dispatch
-	} = props
-
 	return (
 		<div className={styles.app_wrapper}>
 			<Header />
@@ -31,6 +27,11 @@ const App = (props) => {
 						exact
 						path="/dialogs"
 						Component={() => <DialogsContainer />}
+					/>
+					<Route
+						exact
+						path="/users"
+						Component={() => <UsersContainer />}
 					/>
 					<Route path="/music" Component={Music} />
 					<Route path="/news" Component={News} />

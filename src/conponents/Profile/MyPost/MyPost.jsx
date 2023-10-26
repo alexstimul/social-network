@@ -43,7 +43,7 @@ const MyPost = (props) => {
             </div>
             <div className={styles.posts}>
                 {postsData && postsData.map((post) => (
-                    <Post message={post.text} likes={post.likesCount} />
+                    <Post key={post.id} message={post.text} likes={post.likesCount} />
                 ))}
             </div>
         </div>

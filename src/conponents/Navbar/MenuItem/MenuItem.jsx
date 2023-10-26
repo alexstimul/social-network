@@ -6,7 +6,7 @@ import styles from "./MenuItem.module.css";
 const MenuItem = (props) => {
     return (
         <div className={styles.menu_item}>
-            <img src="https://cdn-icons-png.flaticon.com/512/3106/3106773.png" />
+            <img src={props.iconLink} />
             <NavLink 
                 to={props.link ? props.link : "#"}
                 // className={styles.menu_link}

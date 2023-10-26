@@ -15,11 +15,11 @@ const Dialogs = (props) => {
     let newMessageElement = React.createRef();
 
     const sendNewMessage = () => {
-        updateNewMessageBody()   
+        sendMessage()
     }
 
     const newMessageTextChange = () => {
-        sendMessage(newMessageElement.current.value)
+        updateNewMessageBody(newMessageElement.current.value)
     }
 
     return (
@@ -27,6 +27,7 @@ const Dialogs = (props) => {
             <div className={styles.dialogs_items}>
                 {data.dialogs && data.dialogs.map((dialog) => (
                     <DialogItem
+                        key={dialog.id}
                         id={dialog.id}
                         name={dialog.name}
                     />
@@ -34,7 +35,7 @@ const Dialogs = (props) => {
             </div>
             <div className={styles.messages}>
                 {data.messages && data.messages.map((message) => (
-                    <Message message={message.message} />
+                    <Message key={message.id} message={message.message} />
                 ))}
 
                 <div className={textareaStyle.posts_new_post}>
