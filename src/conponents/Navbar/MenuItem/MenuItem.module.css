@@ -1,0 +1,21 @@
+.menu_item {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	width: 100%;
+	margin-bottom: 15px;
+}
+
+.menu_item img {
+	width: 15%;
+}
+
+.menu_link {
+	text-decoration: none;
+	color: #000;
+	width: 60%;
+}
+
+.active {
+	color: blueviolet;
+}
