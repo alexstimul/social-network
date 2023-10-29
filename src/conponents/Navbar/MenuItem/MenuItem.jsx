@@ -9,8 +9,6 @@ const MenuItem = (props) => {
             <img src={props.iconLink} />
             <NavLink 
                 to={props.link ? props.link : "#"}
-                // className={styles.menu_link}
-                // activeClassName={styles.active}
                 className={
                     (navData) => navData.isActive ? `${styles.menu_link} ${styles.active}` : styles.menu_link
                 }

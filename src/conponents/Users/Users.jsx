@@ -1,61 +1,87 @@
 import React from "react";
 import styles from "./Users.module.css";
 import axios from "axios";
+import { NavLink } from "react-router-dom";
+import { apiBaseUrl } from "../../staticData";
 
 const Users = (props) => {
     const {
         users,
         followUser,
         unFollowUser,
-        setUsers
+        onPageChanged,
+        currentPage,
+        totalUsersCount,
+        pageSize
     } = props
 
-    const getUsers = () => {
-        if (users.length === 0) {
-            axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-                console.log(response.data)
-                setUsers(response.data.items)
-            })
-        }
+    const pagesCount = Math.ceil(totalUsersCount / pageSize)
+
+    const pages = []
+
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i)
     }
 
     return (
-      <div>
-          <button onClick={getUsers}>Получить пользователей</button>
-          {
-              users.map(user => (
-                  <div key={user.id}>
-                      <div>
-                          <div>
-                              <img src={user.photoUser} />
-                          </div>
-                          <div>
-                              <button
-                                onClick={() => {
-                                    if (user.followed) {
-                                        unFollowUser(user.id)
-                                    } else {
-                                        followUser(user.id)
-                                    }
-                                }}
-                              >
-                                  {user.followed ? "Отписаться" : "Подписаться"}
-                              </button>
-                          </div>
-                      </div>
+        <div>
+            <div>
+                {
+                    pages.map(page => (
+                        <span onClick={(e) => { onPageChanged(page) }} className={currentPage === page && styles.selectedPage}>{page}</span>
+                    ))
+                }
+            </div>
+            {
+                users.map(user => (
+                    <div key={user.id}>
+                        <div>
+                            <div>
+                                <NavLink
+                                    to={`/profile/${user.id}`}
+                                >
+                                    <img src={user.photos.small ? user.photos.small : "https://cdn-icons-png.flaticon.com/512/1077/1077114.png"} style={{ width: "100px" }} />
+                                </NavLink>
+                            </div>
+                            <div>
+                                <button disabled={props.followingInProgress.some(id => id === user.id)}
+                                    onClick={() => {
+                                        if (user.followed) {
+                                            props.toggleFollowingProgress(true, user.id)
+                                            axios.delete(`${apiBaseUrl}/follow/${user.id}`, {
+                                                withCredentials: true
+                                            }).then(response => {
+                                                if (response.data.resultCode === 0) {
+                                                    unFollowUser(user.id)
+                                                }
+                                                props.toggleFollowingProgress(false, user.id)
+                                            })
+                                        } else {
+                                            props.toggleFollowingProgress(true, user.id)
+                                            axios.post(`${apiBaseUrl}/follow/${user.id}`, {}, {
+                                                withCredentials: true
+                                            }).then(response => {
+                                                if (response.data.resultCode === 0) {
+                                                    followUser(user.id)
+                                                }
+                                                props.toggleFollowingProgress(false, user.id)
+                                            })
+                                        }
+                                    }}
+                                >
+                                    {user.followed ? "Отписаться" : "Подписаться"}
+                                </button>
+                            </div>
+                        </div>
 
-                      <div>
-                          <span>{user.name}</span>
-                          <span>{user.status}</span>
-                      </div>
-                      {/* <div>
-                          <span>{user.location.city}</span>
-                          <span>{user.location.country}</span>
-                      </div> */}
-                  </div>
-              ))
-          }
-      </div>
+                        <div>
+                            <span>{user.name}</span>
+                            <span>{user.status}</span>
+                        </div>
+                    </div>
+                ))
+            }
+        </div>
     );
 }
 

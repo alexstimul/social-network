@@ -10,18 +10,19 @@ import UsersContainer from "./conponents/Users/UsersContainer";
 
 import styles from './App.module.css';
 import { Route, Routes } from 'react-router-dom';
+import ProfileContainer from './conponents/Profile/ProfileContainer';
+import HeaderContainer from './conponents/Header/HeaderContainer';
 
 const App = (props) => {
 	return (
 		<div className={styles.app_wrapper}>
-			<Header />
+			<HeaderContainer />
 			<Navbar />
 			<div className={styles.app_wrapper_content}>
 				<Routes>
 					<Route
-						exact
-						path="/profile"
-						Component={() => <Profile />}
+						path="/profile/:userId?"
+						Component={() => <ProfileContainer />}
 					/>
 					<Route
 						exact
