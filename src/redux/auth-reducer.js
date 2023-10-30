@@ -1,3 +1,5 @@
+import {authAPI} from "../api/api";
+
 const LOGIN = "LOGIN"
 
 const initialState = {
@@ -23,3 +25,13 @@ export const authReducer = (state = initialState, action) => {
 }
 
 export const login = (userId, email, login) => ({ type: LOGIN, data: {userId, email, login} })
+
+export const auth = () => (dispatch) => {
+    authAPI.auth().then(response => {
+        console.log(response.data)
+        if (response.data.resultCode === 0) {
+            const {login, id, email} = response.data.data
+            dispatch(login(id, email, login))
+        }
+    })
+}

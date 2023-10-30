@@ -1,8 +1,7 @@
 import React from "react";
 import styles from "./Users.module.css";
-import axios from "axios";
 import { NavLink } from "react-router-dom";
-import { apiBaseUrl } from "../../staticData";
+import Pagination from "../Pagination/Pagination";
 
 const Users = (props) => {
     const {
@@ -15,23 +14,14 @@ const Users = (props) => {
         pageSize
     } = props
 
-    const pagesCount = Math.ceil(totalUsersCount / pageSize)
-
-    const pages = []
-
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i)
-    }
-
     return (
         <div>
-            <div>
-                {
-                    pages.map(page => (
-                        <span onClick={(e) => { onPageChanged(page) }} className={currentPage === page && styles.selectedPage}>{page}</span>
-                    ))
-                }
-            </div>
+            <Pagination
+                totalUsersCount={totalUsersCount}
+                pageSize={pageSize}
+                onPageChanged={onPageChanged}
+                currentPage={currentPage}
+            />
             {
                 users.map(user => (
                     <div key={user.id}>
@@ -47,25 +37,9 @@ const Users = (props) => {
                                 <button disabled={props.followingInProgress.some(id => id === user.id)}
                                     onClick={() => {
                                         if (user.followed) {
-                                            props.toggleFollowingProgress(true, user.id)
-                                            axios.delete(`${apiBaseUrl}/follow/${user.id}`, {
-                                                withCredentials: true
-                                            }).then(response => {
-                                                if (response.data.resultCode === 0) {
-                                                    unFollowUser(user.id)
-                                                }
-                                                props.toggleFollowingProgress(false, user.id)
-                                            })
+                                            followUser(user.id)
                                         } else {
-                                            props.toggleFollowingProgress(true, user.id)
-                                            axios.post(`${apiBaseUrl}/follow/${user.id}`, {}, {
-                                                withCredentials: true
-                                            }).then(response => {
-                                                if (response.data.resultCode === 0) {
-                                                    followUser(user.id)
-                                                }
-                                                props.toggleFollowingProgress(false, user.id)
-                                            })
+                                            unFollowUser(user.id)
                                         }
                                     }}
                                 >

@@ -7,14 +7,11 @@ import { useParams } from "react-router-dom";
 const ProfileContainer = (props) => {
     const params = useParams();
     
-    const currentUserId = params.userId
+    const currentUserId = parseInt(params.userId)
 
-    console.log(props.profile, props.profile?.id, currentUserId, props.profile?.id !== currentUserId);
-
-    if (!props.profile) {
+    if (!props.profile || parseInt(props.profile?.userId) !== currentUserId) {
         props.getUserProfile(currentUserId)
     }
-
     
     return (
         <Profile {...props} profile={props.profile} />
