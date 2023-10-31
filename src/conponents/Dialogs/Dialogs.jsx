@@ -4,12 +4,14 @@ import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 
 import textareaStyle from "../Profile/MyPost/MyPost.module.css"
+import { Navigate } from "react-router-dom";
 
 const Dialogs = (props) => {
     const {
         data,
         sendMessage,
-        updateNewMessageBody
+        updateNewMessageBody,
+        isAuth
     } = props
 
     let newMessageElement = React.createRef();

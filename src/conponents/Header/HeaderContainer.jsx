@@ -2,6 +2,7 @@ import React from "react";
 import Header from "./Header";
 import { connect } from "react-redux";
 import {auth} from "../../redux/auth-reducer";
+import {compose} from "redux";
 
 class HeaderContainer extends React.Component {
     componentDidMount() {
@@ -22,4 +23,6 @@ const mapDispatchToProps = {
     auth
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(HeaderContainer);
+export default compose(
+    connect(mapStateToProps, mapDispatchToProps)
+)(HeaderContainer);

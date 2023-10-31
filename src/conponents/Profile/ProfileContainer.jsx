@@ -2,11 +2,14 @@ import React from "react";
 import Profile from "./Profile";
 import { connect } from "react-redux";
 import { getUserProfile } from "../../redux/profile-reducer";
-import { useParams } from "react-router-dom";
+import {useParams} from "react-router-dom";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
+import Dialogs from "../Dialogs/Dialogs";
 
 const ProfileContainer = (props) => {
     const params = useParams();
-    
+
     const currentUserId = parseInt(params.userId)
 
     if (!props.profile || parseInt(props.profile?.userId) !== currentUserId) {
@@ -18,9 +21,14 @@ const ProfileContainer = (props) => {
     )
 }
 
-const mapStateToProps = (state) => ({ profile: state.profilePage.profile })
+const mapStateToProps = (state) => ({
+    profile: state.profilePage.profile
+})
 const mapDispatchToProps = {
     getUserProfile
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProfileContainer);
+export default compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    withAuthRedirect
+)(ProfileContainer);

@@ -1,6 +1,7 @@
 import MyPost from "./MyPost";
 import {addNewPost, newPostTextChange} from "../../../redux/profile-reducer";
 import { connect } from "react-redux";
+import {compose} from "redux";
 
 const mapStateToProps = (state) => {
     return {
@@ -14,4 +15,6 @@ const mapDispatchToProps = {
     newPostTextChange
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MyPost);
+export default compose(
+    connect(mapStateToProps, mapDispatchToProps)
+)(MyPost);
