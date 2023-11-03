@@ -9,6 +9,7 @@ import Dialogs from "../Dialogs/Dialogs";
 
 const ProfileContainer = (props) => {
     const params = useParams();
+    // const { projectId } = useParams<{ projectId: string }>()
 
     const currentUserId = parseInt(params.userId)
 
