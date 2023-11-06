@@ -20,7 +20,6 @@ const initialState = {
 export const usersReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_FRIEND:
-            debugger
             return {
                 ...state,
                 users: state.users.map((user) => {

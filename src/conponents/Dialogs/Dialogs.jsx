@@ -3,8 +3,7 @@ import styles from "./Dialogs.module.css";
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 
-import textareaStyle from "../Profile/MyPost/MyPost.module.css"
-import { Navigate } from "react-router-dom";
+import MessageFormContainer from "./MessageForm/MessageForm";
 
 const Dialogs = (props) => {
     const {
@@ -14,14 +13,8 @@ const Dialogs = (props) => {
         isAuth
     } = props
 
-    let newMessageElement = React.createRef();
-
-    const sendNewMessage = () => {
-        sendMessage()
-    }
-
-    const newMessageTextChange = () => {
-        updateNewMessageBody(newMessageElement.current.value)
+    const sendNewMessage = (message) => {
+        sendMessage(message)
     }
 
     return (
@@ -40,25 +33,7 @@ const Dialogs = (props) => {
                     <Message key={message.id} message={message.message} />
                 ))}
 
-                <div className={textareaStyle.posts_new_post}>
-                    <div className={textareaStyle.new_post_text_wrapper}>
-                        <textarea
-                            className={textareaStyle.new_post_text}
-                            placeholder="Введите текст сообщения..."
-                            ref={newMessageElement}
-                            value={data.newMessageText}
-                            onChange={newMessageTextChange}
-                        />
-                    </div>
-                    <div className={textareaStyle.create_post_button_wrapper}>
-                        <button
-                            className={textareaStyle.create_post_button}
-                            onClick={sendNewMessage}
-                        >
-                            Отправить
-                        </button>
-                    </div>
-                </div>
+                <MessageFormContainer sendNewMessage={sendNewMessage} />
             </div>
         </div>
     );

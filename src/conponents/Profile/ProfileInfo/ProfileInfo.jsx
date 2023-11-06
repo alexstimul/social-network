@@ -1,10 +1,13 @@
 import React from "react";
 import styles from "./ProfileInfo.module.css";
 import Preloader from "../../Preloader/Preloader"
+import ProfileStatus from "./ProfileStatus/ProfileStatus"
 
 const ProfileInfo = (props) => {
     const {
-        profile
+        profile,
+        status,
+        updateUserStatus
     } = props
 
     if (!profile) {
@@ -24,7 +27,7 @@ const ProfileInfo = (props) => {
                     className={styles.profile_avatar} 
                 />
                 <div className={styles.profile_description}>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Incidunt deserunt asperiores accusantium magni repellat ut blanditiis repellendus, odio velit libero. A nemo expedita assumenda illo veniam autem! Quaerat, illo debitis.
+                    <ProfileStatus status={status} updateUserStatus={updateUserStatus} />
                 </div>
             </div>
         </div>

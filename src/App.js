@@ -10,7 +10,7 @@ import styles from './App.module.css';
 import { Route, Routes } from 'react-router-dom';
 import ProfileContainer from './conponents/Profile/ProfileContainer';
 import HeaderContainer from './conponents/Header/HeaderContainer';
-import Login from "./conponents/Login/Login";
+import Login from "./conponents/Login/LoginContainer";
 
 const App = (props) => {
 	return (

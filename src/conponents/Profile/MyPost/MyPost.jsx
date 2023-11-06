@@ -2,6 +2,7 @@ import React from "react";
 import Post from "./Post/Post";
 
 import styles from "./MyPost.module.css";
+import NewPostContainer from "./NewPostForm/NewPostForm";
 
 const MyPost = (props) => {
     const {
@@ -10,37 +11,13 @@ const MyPost = (props) => {
         newPostTextChange
     } = props
 
-    let newPostElement = React.createRef();
-
-    const onSubmit = () => {
-        addNewPost()  
-    }
-
-    const onChange = () => {
-        newPostTextChange(newPostElement.current.value)
+    const sendPost = (text) => {
+        addNewPost(text)  
     }
 
     return (
         <div>
-            <div className={styles.posts_new_post}>
-                <div className={styles.new_post_text_wrapper}>
-                    <textarea 
-                        className={styles.new_post_text} 
-                        placeholder="Что нового?" 
-                        ref={newPostElement}
-                        value={props.newPostText}
-                        onChange={onChange}
-                    />
-                </div>
-                <div className={styles.create_post_button_wrapper}>
-                    <button 
-                        className={styles.create_post_button}
-                        onClick={onSubmit}
-                    >
-                        Опубликовать
-                    </button>
-                </div>
-            </div>
+            <NewPostContainer sendPost={sendPost} />
             <div className={styles.posts}>
                 {postsData && postsData.map((post) => (
                     <Post key={post.id} message={post.text} likes={post.likesCount} />
